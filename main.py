@@ -2,14 +2,18 @@
 import sys
 import ijson
 import MySQLdb
+from ConfigParser import SafeConfigParser
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-conn = MySQLdb.connect(host="hostname", user="username", passwd="password", db="database")
+parser = SafeConfigParser()
+parser.read('config.ini')
+
+conn = MySQLdb.connect(host=parser.get('MySQL', 'host'), user=parser.get('MySQL', 'username'), passwd=parser.get('MySQL', 'password'), db=parser.get('MySQL', 'db'))
 x = conn.cursor()
 
-f = open('local_file.json')
+f = open(parser.get('GeoFile', 'filename'))
 objects = ijson.items(f, 'item')
 for obj in objects:
   loong, lat = obj['adgangsadresse']['adgangspunkt']['koordinater']
