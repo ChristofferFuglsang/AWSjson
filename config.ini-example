@@ -1,0 +1,8 @@
+[MySQL]
+username = someUser
+password = somePassword
+host = someHostname
+db = dbName
+
+[GeoFile]
+filename = fileToParse
